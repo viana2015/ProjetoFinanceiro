@@ -11,15 +11,12 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.util.StringUtils;
 
 import com.jrcg.jrmoney.api.model.Lancamento;
-import com.jrcg.jrmoney.api.model.Pessoa;
 import com.jrcg.jrmoney.api.repository.filter.LancamentoFilter;
 import com.jrcg.jrmoney.api.repository.projection.ResumoLancamento;
 
