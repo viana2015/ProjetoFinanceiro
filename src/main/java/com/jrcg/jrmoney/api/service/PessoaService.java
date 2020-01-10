@@ -1,5 +1,7 @@
 package com.jrcg.jrmoney.api.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -13,7 +15,8 @@ public class PessoaService {
 	
 	@Autowired
 	private PessoaRepository pessoaRepository;
-// Regra de negocio de atualizaç~;ao de pessoas.
+
+	// Regra de negocio de atualizaç~;ao de pessoas.
 	public Pessoa atualizar(Long codigo, Pessoa pessoa) {
 		Pessoa pessoaSalva = buscarPessoaPeloCodigo(codigo);
 		BeanUtils.copyProperties(pessoa, pessoaSalva, "codigo");
@@ -28,13 +31,12 @@ public class PessoaService {
 		this.pessoaRepository.save(pessoaSalva);
 	}
 	
-	private Pessoa buscarPessoaPeloCodigo(Long codigo) {
-		Pessoa pessoaSalva = this.pessoaRepository.findById(codigo)
-				.orElseThrow(() -> new EmptyResultDataAccessException(1));
-		if (pessoaSalva == null) { // Adicionando uma regra se pessoa salva for igual a null 
+	public Pessoa buscarPessoaPeloCodigo(Long codigo) {
+		Optional<Pessoa> pessoaSalva = pessoaRepository.findById(codigo);
+				if (!pessoaSalva.isPresent()) { // Adicionando uma regra se pessoa salva for igual a null 
 			throw new EmptyResultDataAccessException(1); //Lanço esta exceção
 			
 		}
-		return pessoaSalva;
+		return pessoaSalva.get();
 	}
 }

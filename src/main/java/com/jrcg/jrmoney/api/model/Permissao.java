@@ -1,29 +1,17 @@
 package com.jrcg.jrmoney.api.model;
 
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "pessoa")
-public class Pessoa {
-
+@Table(name = "permissao")
+public class Permissao {
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 	
-	@NotNull
-	private String nome;
-	
-	@Embedded
-	private Endereco endereco;
-	
-	@NotNull
-	private Boolean ativo;
+	private String descricao;
 
 	public Long getCodigo() {
 		return codigo;
@@ -33,31 +21,14 @@ public class Pessoa {
 		this.codigo = codigo;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
-	public Endereco getEndereco() {
-		return endereco;
-	}
-
-	public void setEndereco(Endereco endereco) {
-		this.endereco = endereco;
-	}
-
-	public Boolean getAtivo() {
-		return ativo;
-	}
-
-	public void setAtivo(Boolean ativo) {
-		this.ativo = ativo;
-	}
-
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -74,7 +45,7 @@ public class Pessoa {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Pessoa other = (Pessoa) obj;
+		Permissao other = (Permissao) obj;
 		if (codigo == null) {
 			if (other.codigo != null)
 				return false;
@@ -83,7 +54,5 @@ public class Pessoa {
 		return true;
 	}
 
-	
-	
 	
 }
