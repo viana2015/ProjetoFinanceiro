@@ -12,6 +12,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -26,9 +27,6 @@ public class LancamentoRepositoryImpl implements LancamentoRepositoryQuery {
 
 	@PersistenceContext
 	private EntityManager manage;
-	
-	@Autowired
-	private Pessoa pessoa;
 	
 	
 	@Override
@@ -58,7 +56,7 @@ public class LancamentoRepositoryImpl implements LancamentoRepositoryQuery {
 				, root.get("dataVencimento"), root.get("dataPagamento")
 				, root.get("valor"), root.get("tipo")
 				, root.get("categoria").get("id")
-				, root.get("pessoa").get(pessoa.getNome())));
+				, root.get("pessoa").get("nome")));
 
 		Predicate[] predicates = criarRestricoes(lancamentoFilter, builder, root);
 		criteria.where(predicates);
