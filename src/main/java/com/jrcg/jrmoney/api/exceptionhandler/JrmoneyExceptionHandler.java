@@ -42,6 +42,7 @@ public class JrmoneyExceptionHandler extends ResponseEntityExceptionHandler {
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
+		
 		List<Erro> erros = criarListaDeErros(ex.getBindingResult());
 		return handleExceptionInternal(ex, erros, headers, HttpStatus.BAD_REQUEST, request);
 	}
@@ -70,13 +71,13 @@ public class JrmoneyExceptionHandler extends ResponseEntityExceptionHandler {
 		String mensagemDesenvolvedor = fieldError.toString();
 		erros.add(new Erro(mensagemUsusario, mensagemDesenvolvedor));
 		
-	}
+		}
+	
 		return erros;
 	}
 	public static class Erro {
 		
 		private String mensagemUsusario;
-		
 		private String mensagemDesenvolvedor;
 
 		public Erro(String mensagemUsusario, String mensagemDesenvolvedor) {

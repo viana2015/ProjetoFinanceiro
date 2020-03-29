@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.context.ApplicationEvent;
 
-// meu evento para adcionar o rader locaions e que irá ser lançado pela classe RecusoCriadoListener
+// meu evento para adcionar o header locaions e que irá ser lançado pela classe RecusoCriadoListener
 public class RecursoCriadoEvent extends ApplicationEvent {
 	private static final long serialVersionUID = 1L;
 

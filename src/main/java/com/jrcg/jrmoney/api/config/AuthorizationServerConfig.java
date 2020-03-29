@@ -33,33 +33,32 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 		clients.inMemory()
 				.withClient("angular")
-				.secret("@ngul@r") //@ngul@r
+				.secret("$2a$10$jpY58bU98jLI2DlSOevMzeoFjkhCE5JG4Jr1KF6GfR8NA6MAxrDLC") //@ngul@r0
 				.scopes("read", "write")
 				.authorizedGrantTypes("password", "refresh_token")
 				.accessTokenValiditySeconds(1800)
 				.refreshTokenValiditySeconds(3600 * 24)
 			.and()
-			.withClient("mobile")
-			.secret("m0b1l30") //m0b1l30
-			.scopes("read")
-			.authorizedGrantTypes("password", "refresh_token")
-			.accessTokenValiditySeconds(1800)
-			.refreshTokenValiditySeconds(3600 * 24);
+				.withClient("mobile")
+				.secret("$2a$10$BVd1wTEbDL8L1/GFiNeNFOYqbX1jDh9elA9qfVOd2FrKjtAACQN62") //m0b1l30
+				.scopes("read")
+				.authorizedGrantTypes("password", "refresh_token")
+				.accessTokenValiditySeconds(1800)
+				.refreshTokenValiditySeconds(3600 * 24);
 
 	}
 	
 	@Override
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-			
-		TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
-		tokenEnhancerChain.setTokenEnhancers(Arrays.asList(tokenEnhancer(), accessTokenConverter()));
+			TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
+			tokenEnhancerChain.setTokenEnhancers(Arrays.asList(tokenEnhancer(), accessTokenConverter()));
 		
-		endpoints
-			.tokenStore(tokenStore())
-			.tokenEnhancer(tokenEnhancerChain)
-			.reuseRefreshTokens(false)
-			.userDetailsService(userDetailsService)
-			.authenticationManager(authenticationManager);
+			endpoints
+				.tokenStore(tokenStore())
+				.tokenEnhancer(tokenEnhancerChain)
+				.reuseRefreshTokens(false)
+				.userDetailsService(userDetailsService)
+				.authenticationManager(authenticationManager);
 	}
 	
 	@Bean
@@ -69,10 +68,12 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 		return accessTokenConverter;
 	}
 
+	@Bean
 	public TokenStore tokenStore() {
 		return new JwtTokenStore(accessTokenConverter());
 	}
 	
+	@Bean
 	public TokenEnhancer tokenEnhancer() {
 		return new CustomTokenEnhancer();
 	}

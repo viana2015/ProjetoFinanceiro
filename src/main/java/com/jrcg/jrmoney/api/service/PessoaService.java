@@ -15,27 +15,33 @@ public class PessoaService {
 	
 	@Autowired
 	private PessoaRepository pessoaRepository;
+	
+	public Pessoa salvar(Pessoa pessoa) {
+		pessoa.getContatos().forEach(c -> c.setPessoa(pessoa));
+		return pessoaRepository.save(pessoa);
+	}
 
-	// Regra de negocio de atualizaç~;ao de pessoas.
 	public Pessoa atualizar(Long codigo, Pessoa pessoa) {
 		Pessoa pessoaSalva = buscarPessoaPeloCodigo(codigo);
-		BeanUtils.copyProperties(pessoa, pessoaSalva, "codigo");
-		return this.pessoaRepository.save(pessoaSalva);
 		
+		pessoaSalva.getContatos().clear();
+		pessoaSalva.getContatos().addAll(pessoa.getContatos());
+		pessoaSalva.getContatos().forEach(c -> c.setPessoa(pessoaSalva));
+		
+		BeanUtils.copyProperties(pessoa, pessoaSalva, "codigo", "contatos");
+		return pessoaRepository.save(pessoaSalva);
 	}
-	
-	
+
 	public void atualizarPropriedadeAtivo(Long codigo, Boolean ativo) {
 		Pessoa pessoaSalva = buscarPessoaPeloCodigo(codigo);
 		pessoaSalva.setAtivo(ativo);
-		this.pessoaRepository.save(pessoaSalva);
+		pessoaRepository.save(pessoaSalva);
 	}
 	
 	public Pessoa buscarPessoaPeloCodigo(Long codigo) {
 		Optional<Pessoa> pessoaSalva = pessoaRepository.findById(codigo);
-				if (!pessoaSalva.isPresent()) { // Adicionando uma regra se pessoa salva for igual a null 
-			throw new EmptyResultDataAccessException(1); //Lanço esta exceção
-			
+		if (!pessoaSalva.isPresent()) {
+			throw new EmptyResultDataAccessException(1);
 		}
 		return pessoaSalva.get();
 	}

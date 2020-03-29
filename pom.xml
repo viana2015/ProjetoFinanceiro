@@ -16,6 +16,13 @@
 
 	<properties>
 		<java.version>13</java.version>
+		
+		<aws-java-sdk.version>1.11.274</aws-java-sdk.version>
+		
+		<jasperreports.version>6.5.1</jasperreports.version>
+        <jasperreports-functions.version>6.5.1</jasperreports-functions.version>
+        <jasperreports-fonts.version>6.0.0</jasperreports-fonts.version>
+		
 	</properties>
 
 	<dependencies>
@@ -74,6 +81,11 @@
 		</dependency>
 		
 		<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+		
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
@@ -84,12 +96,38 @@
 		    <artifactId>spring-security-jwt</artifactId>
 		    <version>1.0.10.RELEASE</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework.security.oauth</groupId>
 			<artifactId>spring-security-oauth2</artifactId>
 			<version>2.3.5.RELEASE</version>
 		</dependency>
-			
+		
+		<!-- JasperReports -->
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>${jasperreports.version}</version>
+        </dependency>
+              
+        
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports-fonts</artifactId>
+            <version>${jasperreports-fonts.version}</version>
+        </dependency>
+		
+		<!-- Amazon S3 -->
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk</artifactId>
+            <version>${aws-java-sdk.version}</version>
+        </dependency>
+
+        <dependency>
+        	<groupId>org.springframework.boot</groupId>
+        	<artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
 	</dependencies>
 
 	<build>
